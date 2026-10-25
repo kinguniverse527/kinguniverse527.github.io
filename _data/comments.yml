@@ -1,0 +1,6 @@
+# 文章评论配置；关闭全站评论时将 enabled 改为 false。
+enabled: true
+repo: kinguniverse527/kinguniverse527.github.io
+repo_id: R_kgDOVNrmHA
+category: Announcements
+category_id: DIC_kwDOVNrmHM4DJmIU

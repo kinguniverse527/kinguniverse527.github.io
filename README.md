@@ -26,6 +26,27 @@
 
 再次打开同一线上版本，会恢复已有的关联草稿并保留未提交的修改。线上文件已更新时，会另开草稿，保留原来的本机版本。
 
+## 文章评论（Giscus）
+
+评论区已启用，显示在每篇文章正文下方。访客可公开阅读评论，使用 GitHub 账号授权 Giscus 后发表评论、回复和表情反应，无需生成写作室令牌。评论存放在 GitHub Discussions，站点不接收读者密码。
+
+首次设置（当前仓库已完成；迁移仓库时参考）：
+
+1. 在[仓库设置](https://github.com/kinguniverse527/kinguniverse527.github.io/settings)的 General → Features 勾选 **Discussions**。
+2. [安装 Giscus GitHub App](https://github.com/apps/giscus)，选择 **Only select repositories**，只选本博客仓库。
+3. 打开 [Giscus 配置](https://giscus.app/zh-CN)，填写本仓库名称，选 **Announcements**（公告类型）分类。从生成代码中复制 `data-category-id` 到 [`_data/comments.yml`](_data/comments.yml) 的 `category_id`，确认分类名称匹配，再把 `enabled` 改为 `true`。仓库 ID 已填写；这里的 ID 是公开标识，不是密码或 token。
+4. 提交并等待 Pages 部署完成，在一篇文章底部确认登录入口。首次真实留言会创建对应讨论；不需要事先为每篇文章建讨论。
+
+管理与维护：
+
+- 在[仓库 Discussions](https://github.com/kinguniverse527/kinguniverse527.github.io/discussions)管理留言，可删除违规内容、锁定讨论。登录不等于完全防垃圾评论，仍需人工管理。
+- 全站关闭：将 `_data/comments.yml` 的 `enabled` 设为 `false`；单篇关闭：在文章头部添加 `comments: false`。隐藏页面评论区不会删除 GitHub 中已有讨论，也不等于锁定讨论。
+- 评论默认按文章文件路径关联。通过写作室修改标题、日期或网址短名不会改变原文件路径，因此仍使用原评论区。
+- 若要在仓库里移动或重命名文章文件，请先加 `comment_id: "_posts/原文件名.md"`（完整原路径，不加 `blog:`），以后保持该值不变；不要给不同文章使用相同 `comment_id`。
+- [`giscus.json`](giscus.json) 限制仅正式域名嵌入评论；本地预览默认不能加载真实评论。更换域名时同步修改该文件。此限制不阻止用户直接在 GitHub 讨论。
+- 模块集中在 [`_includes/comments.html`](_includes/comments.html)，布局在 `assets/css/style.css` 的末尾。评论为中文浅色主题，滚动到附近才加载，不影响写作室。
+- 详情见 [Giscus 官方说明](https://giscus.app/zh-CN)。评论账号授权和站长的写作室发布授权彼此独立。
+
 ## 首次连接 GitHub
 
 1. 在写作室点击 **连接 GitHub**。默认仓库为 `kinguniverse527/kinguniverse527.github.io`，分支为 `main`，通常无需修改。

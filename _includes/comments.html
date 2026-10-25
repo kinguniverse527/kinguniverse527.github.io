@@ -1,0 +1,27 @@
+{% assign comments = site.data.comments %}
+{% if comments.enabled and page.comments != false and comments.repo_id and comments.repo_id != empty and comments.category_id and comments.category_id != empty %}
+{% assign comment_key = page.comment_id | default: page.path %}
+<section class="post-comments" aria-labelledby="comments-heading">
+  <h2 id="comments-heading">评论</h2>
+  <p class="muted">使用 GitHub 账号登录后留言，首次使用需授权 Giscus。评论及账号名称会公开显示，请友善交流。</p>
+  <div class="giscus"></div>
+  <script src="https://giscus.app/client.js"
+    data-repo="{{ comments.repo | escape }}"
+    data-repo-id="{{ comments.repo_id | escape }}"
+    data-category="{{ comments.category | escape }}"
+    data-category-id="{{ comments.category_id | escape }}"
+    data-mapping="specific"
+    data-term="{{ comment_key | prepend: 'blog:' | escape }}"
+    data-strict="1"
+    data-reactions-enabled="1"
+    data-emit-metadata="0"
+    data-input-position="top"
+    data-theme="light"
+    data-lang="zh-CN"
+    data-loading="lazy"
+    crossorigin="anonymous"
+    async></script>
+  <p class="muted comments-help">加载不出来？可刷新重试，或<a href="https://github.com/{{ comments.repo | escape }}/discussions">到 GitHub 查看讨论</a>。</p>
+  <noscript><p>评论区需要启用 JavaScript；你也可以通过上方链接在 GitHub 参与讨论。</p></noscript>
+</section>
+{% endif %}
