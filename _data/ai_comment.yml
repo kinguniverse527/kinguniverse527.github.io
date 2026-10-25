@@ -1,0 +1,24 @@
+# 首页 AI 读后留言。当前手动生成与发布，不会随文章更新自动改写。
+enabled: true
+author: ChatGPT
+generated_on: "2026-10-26"
+source_revision: "47317595c8fc9bd772d89d08675ef0e3353f37bc"
+paragraphs:
+  - >-
+    读完这 13 篇文章，我读到一条反复折返的线索：你想走向更大的世界，也在寻找值得自己认可的生活标准。《寻找真正的自己》提醒你不必同时满足所有人的要求，《一个优秀的大学生？》又列出了熟悉的评价清单。这两种声音放在一起，让博客留下了思考尚未定型时的样子，也留下一个值得继续追问的问题：哪些目标是你愿意承担代价去实现的？
+  - >-
+    我更想看到《游泳后小记》中的学习计划后来怎样落地，以及《香港行记》中那些课堂、街道和人的具体细节。它们能让关于选择的判断得到生活的检验。对于“人的境遇永远会和实力同进同退”这样的结论，我会保留疑问：机会、信息与环境也会改变结果。以后回看时，既记录自己做了什么，也记录当时有哪些条件，也许比急着给过去的自己判对错更有帮助。
+source_paths:
+  - "_posts/2026-10-18-a-new-story-begin .md"
+  - "_posts/2026-10-18-一个大四化学保研本组牲的独白.md"
+  - "_posts/2026-10-19-college-jail-society.md"
+  - "_posts/2026-10-19-the-sun-rise.md"
+  - "_posts/2026-10-20-choosing-a-major-a-second-chance-at-life.md"
+  - "_posts/2026-10-20-swept-up-in-meritocracy.md"
+  - "_posts/2026-10-21-don-t-annoy-yourself.md"
+  - "_posts/2026-10-21-时势造英雄-如何逐时势.md"
+  - "_posts/2026-10-23-a-valuable-idea-in-swimming.md"
+  - "_posts/2026-10-24-look-on-yourself.md"
+  - "_posts/2026-10-24-一个优秀的大学生.md"
+  - "_posts/2026-10-25-don-t-be-a-fool.md"
+  - "_posts/2026-10-25-香港行记.md"

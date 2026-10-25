@@ -1,0 +1,23 @@
+{% assign ai_comment = site.data.ai_comment %}
+{% if ai_comment.enabled and ai_comment.paragraphs.size > 0 %}
+<section id="ai-comment" class="ai-comment" aria-labelledby="ai-comment-title">
+  <header class="ai-comment-header">
+    <h2 id="ai-comment-title">{{ ai_comment.author | escape }} 的读后留言</h2>
+    <p class="muted text-note">AI 生成 · <time datetime="{{ ai_comment.generated_on | escape }}">{{ ai_comment.generated_on | date: '%Y.%m.%d' }}</time> · 基于当时的 {{ ai_comment.source_paths.size }} 篇文章</p>
+  </header>
+  {% for paragraph in ai_comment.paragraphs %}
+  <p>{{ paragraph | escape }}</p>
+  {% endfor %}
+  <details class="ai-comment-sources">
+    <summary class="muted text-note">阅读范围</summary>
+    <ul>
+      {% for source_path in ai_comment.source_paths %}
+      {% assign source_post = site.posts | where: 'path', source_path | first %}
+      {% if source_post %}
+      <li><a href="{{ source_post.url | relative_url }}">{{ source_post.title | escape }}</a></li>
+      {% endif %}
+      {% endfor %}
+    </ul>
+  </details>
+</section>
+{% endif %}

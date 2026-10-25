@@ -81,3 +81,13 @@ nav { display: flex; gap: 22px; }
 .post-comments .giscus { width: 100%; min-width: 0; }
 .post-comments .giscus-frame { width: 100%; border: 0; }
 .comments-help { margin-top: 14px; }
+
+/* 首页 AI 留言：内容与生成记录在 _data/ai_comment.yml。 */
+.ai-comment { padding: 24px 0; border-bottom: 1px solid var(--border); overflow-wrap: anywhere; }
+.ai-comment-header h2 { margin-bottom: 6px; }
+.ai-comment-header { margin-bottom: 14px; }
+.ai-comment-header p { margin: 0; }
+.ai-comment > p { margin-bottom: 12px; }
+.ai-comment-sources summary { cursor: pointer; width: fit-content; }
+.ai-comment-sources summary:focus-visible { outline: 2px solid currentColor; outline-offset: 4px; }
+.ai-comment-sources ul { margin: 12px 0 0; padding-left: 22px; }
