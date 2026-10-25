@@ -351,6 +351,7 @@
       return write(async () => {
         if (!input || typeof input !== 'object') throw failure('没有可发布的文章。', 'INVALID_ARTICLE');
         const path = postPath(input.path);
+        const expectedHeadSha = input.expectedHeadSha == null ? null : sha(input.expectedHeadSha);
         if (typeof input.text !== 'string') throw failure('文章内容必须是文字。', 'INVALID_ARTICLE');
         const textBytes = new TextEncoder().encode(input.text);
         const expectedSha = input.expectedSha;
@@ -365,6 +366,7 @@
           return { path: assetPath, bytes: bytesOf(asset.bytes) };
         });
         const state = await snapshot();
+        if (expectedHeadSha && state.headSha !== expectedHeadSha) throw failure('网址检查期间仓库有新提交，请刷新后再提交，避免网址冲突。', 'CONFLICT', 409);
         const existing = expectedEntry(state, path, expectedSha, false);
         const articleSha = await blobSha(textBytes);
         for (const asset of assets) {

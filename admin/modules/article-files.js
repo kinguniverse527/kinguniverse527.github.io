@@ -97,7 +97,7 @@
       title: textField(metadata.title, "文章标题"),
       date: date,
       description: textField(metadata.description, "文章摘要"),
-      slug: originalFilename ? originalFilename.slice(11).replace(/\.(md|markdown)$/i, "") : "",
+      slug: textField(metadata.slug, "网址短名") || (originalFilename ? originalFilename.slice(11).replace(/\.(md|markdown)$/i, "") : ""),
       markdown: markdown,
       originalFilename: originalFilename
     };
@@ -111,6 +111,28 @@
     return article.date + "-" + safeSlug(article.slug || titleSlug) + ".md";
   }
 
+  function originalSlug(article) {
+    return textField(article.metadata?.slug, "网址短名") || (article.originalFilename ? safeFilename(article.originalFilename).slice(11).replace(/\.(md|markdown)$/i, "") : "");
+  }
+  function slugFor(article) {
+    var original = originalSlug(article);
+    var input = textField(article.slug, "网址短名").trim();
+    if (!input || input === original) return original || filenameFor(article).slice(11).replace(/\.(md|markdown)$/i, "");
+    return safeSlug(input);
+  }
+  // 对应本博客 /posts/:year/:month/:day/:title/ 的配置，用于提交前检查网址冲突。
+  function urlPath(article) {
+    var slug = slugFor(article);
+    var values = { year: article.date.slice(0, 4), month: article.date.slice(5, 7), day: article.date.slice(8, 10), title: slug, slug: slug };
+    var template = textField(article.metadata?.permalink, "固定链接") || "/posts/:year/:month/:day/:title/";
+    if (!template.startsWith("/") || template.startsWith("//")) throw new Error("文章的固定链接格式不受支持，请先检查 permalink 配置。");
+    var path = template.replace(/:([a-z_]+)/g, function (_, key) {
+      if (!(key in values)) throw new Error("文章固定链接包含暂不支持的网址变量：" + key);
+      return values[key];
+    });
+    return new URL(path, "https://kinguniverse527.github.io").pathname;
+  }
+
   function contentErrors(article) {
     var errors = [];
     if (!article || typeof article !== "object") return ["没有可导出的文章。"];
@@ -119,6 +141,12 @@
     if (typeof article.description !== "string" && article.description != null) errors.push("文章摘要需要填写文字。");
     if (typeof article.markdown !== "string" || !article.markdown.trim()) errors.push("请填写文章正文。");
     if (article.metadata != null && (typeof article.metadata !== "object" || Array.isArray(article.metadata))) errors.push("文章元数据必须是键值配置。");
+    try {
+      var slug = slugFor(article);
+      if (article.metadata?.permalink && !/:(?:title|slug)(?![a-z_])/.test(article.metadata.permalink) && slug !== originalSlug(article)) {
+        errors.push("这篇文章设置了固定链接 permalink，修改短名不会改变网址。请在仓库文章头部修改 permalink。");
+      }
+    } catch (error) { errors.push(error.message); }
     return errors;
   }
 
@@ -140,6 +168,9 @@
     metadata.title = article.title;
     metadata.date = datePart(original.date) === article.date ? original.date : article.date + " 00:00:00 +0800";
     metadata.description = article.description || "";
+    // 改网址只更新 slug，原 Markdown 文件名保持稳定，避免产生重复文章。
+    var slug = slugFor(article);
+    if (Object.prototype.hasOwnProperty.call(original, "slug") || slug !== originalSlug(article)) metadata.slug = slug;
     var header = yaml().dump(metadata, { schema: yaml().CORE_SCHEMA, lineWidth: -1, sortKeys: false });
     return "---\n" + header + "---\n" + article.markdown;
   }
@@ -148,6 +179,8 @@
     parseArticle: parseArticle,
     serializeArticle: serializeArticle,
     filenameFor: filenameFor,
+    slugFor: slugFor,
+    urlPath: urlPath,
     validateArticle: validateArticle,
     todayShanghai: todayShanghai
   };

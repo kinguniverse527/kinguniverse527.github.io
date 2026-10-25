@@ -1,44 +1,84 @@
-# King_Universe 的 Jekyll 博客
+# King_Universe 的个人博客
 
-一个适用于 GitHub Pages 的小型博客起点。文章、个人资料、模板和样式分别存放，没有前端打包工具，也不需要文章数据库。
+用 Jekyll 生成博客页面，通过 GitHub Pages 发布。项目自带可视化写作室，文章以 Markdown 文件保存在仓库中；日常写作无需安装开发工具。
 
-## 文件在哪里
+- [阅读博客](https://kinguniverse527.github.io/)
+- [打开写作室](https://kinguniverse527.github.io/admin/)
+- [查看部署进度](https://github.com/kinguniverse527/kinguniverse527.github.io/actions)
+- [写作室详细说明](admin/README.md)
 
-| 内容 | 位置 |
+## 日常使用
+
+打开写作室后，左侧“全部文章”会自动读取公开仓库中的文章，按日期从新到旧排列。可以搜索标题、日期、网址短名和已读取的正文。读取公开文章无需授权，提交修改需要连接 GitHub。
+
+| 想做什么 | 怎么操作 |
 | --- | --- |
-| 网站名称、网址、时区 | `_config.yml` |
-| 首页简介、寄语、项目列表 | `_data/profile.yml` |
-| 每篇文章 | `_posts/` |
-| 关于我 | `about.md` |
-| 首页文章列表 | `index.html` |
-| 页面骨架、文章模板 | `_layouts/` |
-| 公共导航与页脚 | `_includes/` |
-| 字号、宽度、间距、手机样式 | `assets/css/style.css` |
-| 图片 | `assets/images/` |
+| 写新文章 | 点击左上角 **＋**，填写标题和正文，再点 **发布到博客** |
+| 修改已有文章 | 在 **全部文章** 中搜索并打开，修改后点 **更新线上文章** |
+| 修改文章网址 | 修改 **网址短名** 后点 **更新线上文章**；部署后新网址生效，旧链接不会自动跳转 |
+| 暂时不发布 | 点击 **保存草稿** 或按 `Ctrl+S`；编辑后也会自动保存 |
+| 备份文章 | 点击 **导出备份**，下载 Markdown 或包含图片的单篇文章 ZIP |
+| 删除本机草稿 | 点击草稿右侧 **删除**，核对标题后确认；不会删除 GitHub 上的文章 |
+| 删除线上文章 | 连接 GitHub 并打开文章，点击 **删除线上文章** 后确认；本机草稿和线上图片保留 |
+| 查看发布结果 | 提交后点击 **查看部署进度**，部署成功后再查看博客 |
 
-## 发布到现有 GitHub Pages
+**保存草稿保存在当前浏览器，发布才会提交到 GitHub。** 换浏览器、换设备或清理网站数据后，本机草稿可能无法找回，重要内容请导出备份。删除本机草稿后无法恢复未发布内容。
 
-1. 备份现有仓库内容。
-2. 把这个目录内的文件放到 `kinguniverse527.github.io` 仓库根目录。不要把外层 `jekyll-blog` 文件夹一起上传。
-3. 如果仓库根目录已有 `.nojekyll`，移除它；该文件会关闭 Jekyll 处理。
-4. 在 Settings → Pages 中选择 Deploy from a branch、`main` 和 `/ (root)`。
-5. 提交后等待 Actions 中的 Pages 构建和部署成功。
-6. 检查首页、文章页、关于页、手机布局和不存在的网址。
+再次打开同一线上版本，会恢复已有的关联草稿并保留未提交的修改。线上文件已更新时，会另开草稿，保留原来的本机版本。
 
-正式地址： https://kinguniverse527.github.io/
+## 首次连接 GitHub
 
-这里使用 GitHub Pages 默认 Jekyll 构建，不需要额外创建 Actions 工作流。
-如果现有站点使用自定义 Actions，需要确认它执行 Jekyll 构建，而不是直接上传源文件。
-如果日后使用项目路径网址，请相应修改 `_config.yml` 的 `url` 与 `baseurl`。
+1. 在写作室点击 **连接 GitHub**。默认仓库为 `kinguniverse527/kinguniverse527.github.io`，分支为 `main`，通常无需修改。
+2. 打开 [GitHub Fine-grained token 设置](https://github.com/settings/personal-access-tokens)，点击 **Generate new token**，填写名称和有效期，Resource owner 选自己的账号。
+3. Repository access 选 **Only select repositories**，只勾选 `kinguniverse527.github.io`；在仓库权限中把 **Contents** 设为 **Read and write**。
+4. 生成后立即复制令牌，回到写作室粘贴到 **仓库授权码**，点击 **连接仓库**。具体设置可参照 [GitHub 官方说明](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens)。
+5. 在自己的设备上，可以勾选 **记住此浏览器，30 天内自动连接**，以后刷新或重新打开会自动验证并恢复连接。
 
-## 新建一篇文章
+生成后如果没有保存令牌、又已离开显示令牌的页面，请重新生成并复制；可以删除不再使用的旧令牌。令牌不要发到聊天、截图中或提交进仓库。
 
-在 `_posts` 新建 `2026-10-19-my-note.md`，例如：
+“记住此浏览器”会把授权码存到当前浏览器，最长 30 天；授权码提前过期、被撤销或浏览器存储被清除时仍需重新连接。不勾选则仅保留本页连接。点击 **账号设置 → 退出并忘记连接** 可清除记忆，本机草稿保留。当前使用令牌连接，并非 GitHub 账号的一键跳转登录。
+
+## 调整展示效果：改哪个文件
+
+| 想调整的内容 | 文件或目录 |
+| --- | --- |
+| 网站名称、网址、时区、文章链接规则 | [`_config.yml`](_config.yml) |
+| 首页简介、寄语、项目列表 | [`_data/profile.yml`](_data/profile.yml) |
+| 关于我 | [`about.md`](about.md) |
+| 文章内容 | [`_posts/`](_posts/) |
+| 首页结构和文章列表 | [`index.html`](index.html) |
+| 全站框架、文章和普通页面模板 | [`_layouts/`](_layouts/) |
+| 导航和页脚 | [`_includes/`](_includes/) |
+| **字体、字号、行高** | [`assets/css/typography.css`](assets/css/typography.css)，优先修改顶部 `:root` |
+| 页面宽度、留白、颜色、手机布局 | [`assets/css/style.css`](assets/css/style.css) |
+| 文章图片 | [`assets/images/`](assets/images/) |
+| 写作室界面、布局、按钮 | [`admin/index.html`](admin/index.html)、[`admin/editor.css`](admin/editor.css) |
+| 写作室功能模块 | [`admin/app.js`](admin/app.js)、[`admin/modules/`](admin/modules/) |
+
+文字设置集中为两套字体（日常文字、代码）和四档字号（大标题、标题、正文、辅助文字）。修改博客文字样式时，先找 `typography.css`，不必从整个 `style.css` 中查找。
+
+## 项目如何运转
+
+```text
+写作室编辑 → 提交 Markdown 和图片到 GitHub
+                         ↓
+                   GitHub Pages 构建
+                         ↓
+              Jekyll 把文章套入模板与样式
+                         ↓
+                   公开博客更新
+```
+
+文章、资料、模板、样式和写作室分别存放。写作室使用已打包的 Tiptap 编辑器；普通文字编辑和样式修改不需要重新打包。
+
+## 手动写文章（可选）
+
+在 `_posts/` 新建 `YYYY-MM-DD-短名.md`，例如：
 
 ```markdown
 ---
 title: 今天的记录
-date: 2026-10-19 12:00:00 +0800
+date: 2026-10-24 12:00:00 +0800
 description: 一句话摘要。
 ---
 
@@ -46,48 +86,52 @@ description: 一句话摘要。
 
 ## 一个小标题
 
-这里可以使用 **加粗**、列表、引用和链接。
+可以使用 **加粗**、列表、引用和链接。
+
+![图片说明](/assets/images/photo.jpg)
 ```
 
-首页自动按日期从新到旧列出文章，不需要手工增加链接。
-未来日期的文章会等到相应日期后的下一次构建才显示，不会到时间就自动触发构建。
-当前是公开仓库，请勿把私人草稿提交进去；即使页面不展示，源文件也可能被人读取。
+图片放在 `assets/images/`。首页会自动列出文章，不必手动添加链接。默认用文件名里的短名生成网址，正文开头的 `title` 用于显示标题。写作室修改网址短名时，会保存文章头部的 `slug` 配置，更新原文章并保留 Markdown 文件名；不会额外创建一篇文章。新网址若与其他文章重复，会阻止提交。
 
-图片放入 `assets/images`，文章中引用：
+网址短名只填 `my-note` 这样的名称，不要粘贴完整网址；留空沿用原短名。单独设置了固定链接 `permalink` 的文章，需修改该配置才能改变固定网址。修改后旧链接不会自动跳转，请同步更新之前分享的链接。
 
-```liquid
-![图片说明]({{ '/assets/images/photo.jpg' | relative_url }})
-```
+写作室目前不支持定时发布，提交及导出时要求文章日期为今天或更早。手动提交的未来日期文章会被当前配置隐藏，要等日期到达后的下一次构建才会显示。设置 `published: false` 也会隐藏博客页面，但公开仓库里的源文件仍可被读取。
 
-## 本地预览（可选）
+## 更新项目与部署
 
-安装受当前 github-pages 依赖支持的 Ruby 和 Bundler 后，在项目目录运行：
+网站已经使用 GitHub Pages 发布。日常更新只替换有改动的文件，不需要先清空仓库。
+
+- 上传时保留目录层级，将项目内部文件放在仓库根目录；不要上传外层项目文件夹、整个 `outputs` 或 ZIP 文件本身。
+- 同路径文件上传提交后会更新，新文件会新增；旧文件不会因上传一个新文件夹而自动全部删除。
+- 不要用旧整站压缩包覆盖最新的 `_posts/`、资料或配置；更新前先核对仓库里的最新内容。
+- Pages 应执行 Jekyll 构建。本项目使用 `main` 分支的根目录；根目录不要放会关闭 Jekyll 的 `.nojekyll`。
+- `_config.yml` 仅排除写作室中的 `admin/build` 和 `admin/README.md`，不要排除整个 `admin`。
+- 提交后到 [Actions](https://github.com/kinguniverse527/kinguniverse527.github.io/actions) 查看结果。提交成功与网站部署成功是两步。
+
+## 常见情况
+
+| 情况 | 处理方式 |
+| --- | --- |
+| 看不到新版按钮 | 先保存草稿，再按 **Ctrl + F5** 刷新 |
+| 全部文章读取失败或达到限额 | 检查网络，连接 GitHub 后点 **刷新** |
+| 授权后无法提交 | 检查是否选中正确仓库、Contents 是否为 Read and write、令牌是否过期 |
+| 提示文章已在远端修改 | 先导出当前草稿，再刷新并打开线上版本核对，避免覆盖其他修改 |
+| 提交后博客暂未更新 | 等待 Pages 部署成功，再刷新博客 |
+| 文章进入“原文模式” | 内容包含表格、HTML、Liquid 等高级语法；继续编辑原文以保留格式 |
+
+写作室的阅读预览使用博客样式，但不执行 Jekyll 或 Liquid，最终效果以正式博客为准。
+
+## 本地预览与开发（可选）
+
+完整下载项目后，可直接打开 `admin/index.html` 离线写作；联网读取和发布仍需要访问 GitHub。本地文件与线上入口可能使用不同的浏览器草稿库。
+
+博客根目录的 `index.html` 是 Jekyll 模板，需要构建后才能预览。安装兼容项目依赖的 Ruby 和 Bundler，在项目根目录运行：
 
 ```sh
 bundle install
 bundle exec jekyll serve
 ```
 
-打开终端显示的本地网址。不要直接双击这里的 `index.html`：它是模板源文件，需要 Jekyll 生成网页。
-修改 `_config.yml` 后需要重新启动预览。
-首次安装会生成 `Gemfile.lock`，成功构建后可提交它以记录依赖版本。
+打开终端显示的网址；修改 `_config.yml` 后重启预览。`_site/` 是生成结果，不要手工修改或提交。
 
-## 关于可视化后台
-
-本版先完成 Jekyll 基础结构，尚未接入 Decap CMS，也没有可用的 `/admin/` 后台。
-后续接入时再增加 `admin/index.html`、`admin/config.yml` 和登录认证服务。
-目前 `_config.yml` 排除了 `admin`；正式接入后台时需要删除该排除项。
-
-## 维护原则
-
-- 每篇文章单独一个文件，布局由模板统一控制。
-- 名称、简介和项目列表集中放在资料文件里。
-- 公共样式只维护一份，使用正常缩进和分区注释。
-- 修改前先预览，部署后再核对公开网址。
-- `_site` 是生成结果，不要手动修改，也不要提交。
-
-## 本次验证范围
-
-已检查文件结构、模板引用、文章元数据及资源路径。
-制作环境没有 Ruby、Bundler 和 Jekyll，因此未运行实际 Jekyll 构建或浏览器渲染。
-首次发布仍需以 GitHub Pages 的构建结果为准。
+只有升级写作室第三方依赖时，才需要在 `admin/build/` 运行 `npm ci` 和 `npm run build`。模块职责、依赖和验证边界见 [写作室详细说明](admin/README.md)。

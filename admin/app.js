@@ -140,8 +140,8 @@
     attachments = draft.attachments || [];
     rebuildImageUrls();
     for (const key of ['title', 'date', 'description', 'slug']) $(key).value = draft.article[key] || '';
-    $('slug').readOnly = Boolean(draft.article.originalFilename);
-    $('slug').title = draft.article.originalFilename ? '保留导入文件的名称，避免重复发布。' : '';
+    $('slug').readOnly = false;
+    $('slug').title = '修改短名后提交即可更新网址；留空沿用原短名。';
     setMode(needsSource(draft.article.markdown), draft.article.markdown);
     bodyChanged = false;
     dirty = false;
@@ -402,8 +402,14 @@
     },
     async updateRemote(remote) {
       current.remote = remote;
+      if (remote?.sha && !remote.uncertain && !remote.deleted) {
+        const published = F.parseArticle(F.serializeArticle(articleNow()), remote.path.split('/').pop());
+        current.article.metadata = published.metadata;
+        current.article.slug = published.slug;
+        $('slug').value = published.slug;
+      }
       if (remote?.path) current.article.originalFilename = remote.path.split('/').pop();
-      $('slug').readOnly = Boolean(current.article.originalFilename);
+      $('slug').readOnly = false;
       dirty = true;
       await persist();
     },

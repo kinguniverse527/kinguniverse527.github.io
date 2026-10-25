@@ -8,13 +8,13 @@
   <link rel="stylesheet" href="../assets/css/typography.css">
   <link rel="stylesheet" href="editor.css?v=20261023-2">
   <script defer src="vendor/editor-vendor.js"></script>
-  <script defer src="modules/article-files.js"></script>
+  <script defer src="modules/article-files.js?v=20261025-1"></script>
   <script defer src="modules/draft-store.js"></script>
   <script defer src="modules/preview.js"></script>
-  <script defer src="modules/github-client.js?v=20261023-1"></script>
+  <script defer src="modules/github-client.js?v=20261025-1"></script>
   <script defer src="modules/github-session.js?v=20261023-1"></script>
-  <script defer src="modules/github-panel.js?v=20261023-1"></script>
-  <script defer src="app.js?v=20261023-2"></script>
+  <script defer src="modules/github-panel.js?v=20261025-1"></script>
+  <script defer src="app.js?v=20261025-1"></script>
 </head>
 <body>
   <header class="app-header">
@@ -59,8 +59,9 @@
         <input id="title" class="title-input" placeholder="给这篇文章起个名字" autocomplete="off" maxlength="200">
         <div class="meta-row">
           <div><label for="date">发布日期</label><input id="date" type="date" required></div>
-          <div class="slug-field"><label for="slug">网址短名 <span class="optional">可选</span></label><input id="slug" placeholder="例如 my-first-post" autocomplete="off" maxlength="100"></div>
+          <div class="slug-field"><label for="slug">网址短名 <span class="optional">可修改</span></label><input id="slug" placeholder="例如 my-first-post" autocomplete="off" maxlength="100" aria-describedby="slug-note"></div>
         </div>
+        <p id="slug-note" class="remote-note">填写短名，如 my-note，不要粘贴完整网址。修改后点击更新，旧链接不会自动跳转。留空沿用原短名，新文章按标题生成。</p>
         <label for="description">摘要 <span class="optional">显示在首页文章列表</span></label>
         <textarea id="description" rows="2" placeholder="用一两句话介绍这篇文章" maxlength="1000"></textarea>
       </section>

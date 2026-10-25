@@ -195,6 +195,21 @@
       if (draft.remote && !sameRepository(draft.remote)) throw new Error('这篇草稿关联另一个仓库或分支。请连接原仓库，或导出后重新导入为新文章。');
       if (draft.remote?.uncertain) throw new Error('上次提交结果尚未确认。请先导出备份，再从左侧重新打开线上文章核对。');
       const path = draft.remote?.path || '_posts/' + F.filenameFor(draft.article);
+      let expectedHeadSha;
+      let urlChanged = false;
+      const previous = draft.article.originalFilename ? F.parseArticle('---\n' + root.BlogVendor.YAML.dump(draft.article.metadata || {}) + '---\n' + draft.article.markdown, draft.article.originalFilename) : null;
+      if (!draft.remote || draft.remote.deleted || !previous || F.slugFor(draft.article) !== F.slugFor(previous) || draft.article.date !== previous.date) {
+        editor.message('正在检查文章网址是否重复…');
+        const destination = F.urlPath(draft.article);
+        urlChanged = Boolean(draft.remote && !draft.remote.deleted && previous && destination !== F.urlPath(previous));
+        const listed = await client.listPosts();
+        expectedHeadSha = listed[0]?.headSha;
+        await eachLimited(listed.filter(item => item.path !== path), async item => {
+          const file = await client.readPost(item.path, item.headSha);
+          const other = F.parseArticle(file.text, item.name);
+          if (F.urlPath(other) === destination) throw new Error('新网址已被文章“' + (other.title || item.name) + '”使用，请换一个网址短名。');
+        });
+      }
       const assets = [];
       for (const asset of draft.attachments) {
         if (!asset.remoteSha && draft.article.markdown.includes(asset.path)) assets.push({ path: asset.path, bytes: new Uint8Array(await asset.blob.arrayBuffer()) });
@@ -202,14 +217,14 @@
       editor.message('正在提交文章和图片，请保持页面打开…');
       let result;
       try {
-        result = await client.publish({ path, text: F.serializeArticle(draft.article), expectedSha: draft.remote?.deleted ? null : draft.remote?.sha || null, assets, message: (draft.remote && !draft.remote.deleted ? '更新文章：' : '发布文章：') + draft.article.title });
+        result = await client.publish({ path, text: F.serializeArticle(draft.article), expectedSha: draft.remote?.deleted ? null : draft.remote?.sha || null, expectedHeadSha, assets, message: (draft.remote && !draft.remote.deleted ? '更新文章：' : '发布文章：') + draft.article.title });
       } catch (error) {
         if (error.uncertain) await remember({ ...settings, ...draft.remote, path, uncertain: true });
         throw error;
       }
       const saved = await remember({ ...settings, path, sha: result.sha, commitSha: result.commitSha });
       showResult(result, false, draft.article.metadata?.published === false);
-      editor.message(saved ? '文章已提交。部署完成后，读者才会看到新版本。' : 'GitHub 提交已完成，但本机草稿保存失败。请导出备份，不要重复提交。', !saved);
+      editor.message(saved ? '文章已提交。部署完成后，读者才会看到新版本。' + (urlChanged ? ' 网址已更新，旧网址不会自动跳转，请更新之前分享的链接。' : '') : 'GitHub 提交已完成，但本机草稿保存失败。请导出备份，不要重复提交。', !saved);
       await refreshAfterWrite();
     }
     async function removePost() {
