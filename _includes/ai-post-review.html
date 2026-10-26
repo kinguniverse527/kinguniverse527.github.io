@@ -1,0 +1,35 @@
+{% assign current_ai_review = nil %}
+{% for review in site.data.ai_post_reviews.reviews %}
+  {% if review.path == page.path %}
+    {% assign current_ai_review = review %}
+    {% break %}
+  {% endif %}
+{% endfor %}
+<section class="ai-post-review" aria-labelledby="ai-post-review-heading" data-post-title="{{ page.title | escape }}" data-post-path="{{ page.path | escape }}" data-post-url="{{ page.url | absolute_url | escape }}">
+  <header>
+    <p class="eyebrow">A LETTER FROM CHATGPT</p>
+    <h2 id="ai-post-review-heading">ChatGPT 的读后感</h2>
+    <p class="muted ai-review-intro">读完这篇文字后，谈谈我表达的感受、其中的矛盾，以及你真正想对我说的话。不只是概括，也不必一味赞同。</p>
+  </header>
+  {% if current_ai_review and current_ai_review.comments.size > 0 %}
+    <div class="ai-review-entries">
+      {% for item in current_ai_review.comments reversed %}
+        <article class="ai-review-entry">
+          <p class="muted text-note">ChatGPT · <time datetime="{{ item.created_at | escape }}">{{ item.created_at | date: '%Y.%m.%d %H:%M' }}</time></p>
+          <div class="ai-review-text">{{ item.body | escape | newline_to_br }}</div>
+        </article>
+      {% endfor %}
+    </div>
+  {% else %}
+    <p class="muted ai-review-empty">这篇文章还没有 ChatGPT 留言。想听到另一种视角时，可以主动邀请它阅读。</p>
+  {% endif %}
+  <div class="ai-review-actions">
+    <button type="button" class="ai-review-copy">① 复制文章与提问</button>
+    <a href="https://chatgpt.com/" target="_blank" rel="noopener noreferrer">② 打开 ChatGPT ↗</a>
+    <a href="{{ '/admin/ai-review.html' | relative_url }}?post={{ page.path | url_encode }}&amp;title={{ page.title | url_encode }}&amp;url={{ page.url | absolute_url | url_encode }}">③ 保存读后感</a>
+  </div>
+  <p class="muted ai-review-help">把第一步复制的内容粘贴给 ChatGPT，得到回复后复制回来保存。保存需博客主人的 GitHub 写入权限，旧留言会保留。</p>
+  <p class="ai-review-status" role="status" aria-live="polite"></p>
+  <textarea class="ai-review-fallback" aria-label="复制给 ChatGPT 的问题" readonly hidden></textarea>
+</section>
+<script defer src="{{ '/assets/js/ai-post-review.js' | relative_url }}"></script>
