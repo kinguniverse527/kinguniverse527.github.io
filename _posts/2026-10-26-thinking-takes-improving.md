@@ -4,7 +4,7 @@ date: 2026-10-26 00:00:00 +0800
 description: Thinking Takes Improving
 slug: thinking-takes-improving
 ---
-有些时候，我们说我们的工作让基础更坚实了，
+有些时候，我们说我们的工作让自己的基础更坚实了，
 
 实际是狗屁，只是我的脸皮更厚了，
 
@@ -32,3 +32,14 @@ slug: thinking-takes-improving
 
 你要从事研发工作还是行政工作（或者是先研发再当领导）
 
+
+
+我会找到自己的舒适区间，找到自己向往的生活，
+
+不管是留在国内，还是去香港、去欧洲、去美国
+
+我会找到自己的定位
+
+Stop complaining, Stop worrying, Stop being confused.
+
+And one day, you will find your life.
