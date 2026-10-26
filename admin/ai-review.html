@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="robots" content="noindex,nofollow">
+  <title>保存 ChatGPT 读后感 · King_Universe</title>
+  <link rel="stylesheet" href="../assets/css/typography.css">
+  <style>
+    :root{color-scheme:light}
+    *{box-sizing:border-box}
+    body{margin:0;background:#fafaf8;color:#202020;font-family:system-ui,-apple-system,"PingFang SC","Microsoft Yahei",sans-serif;line-height:1.75}
+    main{max-width:790px;margin:5vh auto;padding:0 24px 80px}
+    a{color:inherit;text-underline-offset:4px}
+    .subtle{color:#64645e;font-size:.93rem}
+    .eyebrow{font-size:.76rem;letter-spacing:.17em;color:#64645e}
+    .card{margin:24px 0;border:1px solid #deded8;border-radius:10px;padding:24px;background:white}
+    label{display:block;font-weight:600;margin-top:18px;margin-bottom:7px}
+    textarea,input{width:100%;padding:12px;border:1px solid #bdbdb7;border-radius:6px;background:#fff;color:#202020;font:inherit}
+    textarea{min-height:260px;resize:vertical}
+    button{font:inherit;background:#202020;color:#fff;border:0;padding:11px 20px;border-radius:6px;cursor:pointer}
+    button:disabled{opacity:.5;cursor:wait}
+    #status{min-height:1.7em;white-space:pre-wrap}
+    h1{font-size:1.75rem;margin:0}
+    .tips{padding:12px 16px;background:#f6f5f1;border-left:3px solid #deded8}
+    @media(max-width:600px){main{padding:0 16px 40px}.card{padding:18px}}
+  </style>
+  <script defer src="modules/github-session.js"></script>
+  <script defer src="ai-review.js"></script>
+</head>
+<body>
+<main>
+  <p class="eyebrow">KING_UNIVERSE / WRITING STUDIO</p>
+  <h1>保存 ChatGPT 的读后感</h1>
+  <p class="subtle">这一步只负责将你亲自挑选的 ChatGPT 回复保存到对应文章，不会自动生成评价或修改文章正文。</p>
+  <p id="article-name" class="card" aria-live="polite">正在确认文章…</p>
+  <div class="card">
+    <label for="review-body">ChatGPT 留给这篇文章的评论</label>
+    <textarea id="review-body" maxlength="15000" placeholder="将 ChatGPT 的读后感粘贴到这里。可以自行修改，再保存。"></textarea>
+    <p class="subtle">每次保存会新增一条读后感，之前的历史留言不会被覆盖。评论会公开显示在博客文章里。</p>
+    <label for="github-review-token">GitHub 写作室授权码（可选）</label>
+    <input type="password" id="github-review-token" autocomplete="off" spellcheck="false" placeholder="如果已在写作室选择“记住此浏览器”，这里留空即可">
+    <p class="subtle">只有博客仓库有 Contents 读写权限的授权码才能保存。授权码仅用于本次向 GitHub 提交，不会写进博客文件。<a href="https://github.com/settings/personal-access-tokens" target="_blank" rel="noopener noreferrer">GitHub 授权码设置 ↗</a></p>
+    <button id="save-review" type="button">发布到这篇文章</button>
+    <p id="status" role="status" aria-live="polite"></p>
+  </div>
+  <p class="tips">提交后需要等待 GitHub Pages 构建完成。页面会保留原评论区（Giscus），本功能与读者评论互不影响。</p>
+  <p><a href="../">← 返回博客</a> · <a id="back-to-post" href="../">返回这篇文章</a> · <a href="https://github.com/kinguniverse527/kinguniverse527.github.io/actions" target="_blank" rel="noopener noreferrer">查看部署 ↗</a></p>
+</main>
+</body>
+</html>
