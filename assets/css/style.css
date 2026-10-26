@@ -91,3 +91,19 @@ nav { display: flex; gap: 22px; }
 .ai-comment-sources summary { cursor: pointer; width: fit-content; }
 .ai-comment-sources summary:focus-visible { outline: 2px solid currentColor; outline-offset: 4px; }
 .ai-comment-sources ul { margin: 12px 0 0; padding-left: 22px; }
+
+/* Per-article, manually requested ChatGPT responses. */
+.ai-post-review { margin-top:40px; padding:28px 0; border-top:1px solid var(--border); overflow-wrap:anywhere; }
+.ai-post-review header h2 { margin:6px 0 10px; }
+.ai-post-review .ai-review-intro { max-width:650px; }
+.ai-review-entries { margin:22px 0; display:grid; gap:18px; }
+.ai-review-entry { border-left:3px solid var(--border); padding:8px 16px; background:#f5f5f1; }
+.ai-review-entry .text-note { margin:0 0 12px; }
+.ai-review-text { white-space:normal; line-height:1.85; }
+.ai-review-empty { padding:12px 0; }
+.ai-review-actions { display:flex; flex-wrap:wrap; gap:10px; margin:22px 0 10px; align-items:center; }
+.ai-review-actions button, .ai-review-actions a { font:inherit; font-size:.9rem; color:var(--text); border:1px solid var(--border); padding:9px 12px; border-radius:5px; background:transparent; text-decoration:none; cursor:pointer; }
+.ai-review-actions button:hover, .ai-review-actions a:hover { background:#eeeee8; }
+.ai-review-status { font-size:.9rem; color:var(--muted); }
+.ai-review-fallback { width:100%; min-height:200px; padding:10px; }
+.ai-review-help { font-size:.87rem; }
