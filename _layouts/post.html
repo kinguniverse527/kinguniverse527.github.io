@@ -8,5 +8,6 @@ layout: default
     <time class="muted" datetime="{{ page.date | date_to_xmlschema }}">{{ page.date | date: '%Y.%m.%d' }}</time>
   </header>
   <div class="prose">{{ content }}</div>
+  {% include ai-post-review.html %}
   {% include comments.html %}
 </article>
