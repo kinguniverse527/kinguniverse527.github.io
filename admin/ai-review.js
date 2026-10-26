@@ -12,7 +12,7 @@
   const status = document.getElementById("status");
   const body = document.getElementById("review-body");
   const tokenInput = document.getElementById("github-review-token");
-  const validPost = /^_posts\/(?:[\p{L}\p{N}_ .-]+\/)*\d{4}-\d{2}-\d{2}-[\p{L}\p{N}_ .-]+\.markdown?$/u.test(path) && !path.includes("..");
+  const validPost = /^_posts\/(?:[\p{L}\p{N}_ .-]+\/)*\d{4}-\d{2}-\d{2}-[\p{L}\p{N}_ .-]+\.(?:md|markdown)$/u.test(path) && !path.includes("..");
   name.textContent = validPost ? ("文章：" + title + "（" + path + "）") : "找不到对应的文章。请从文章页面点击“③ 保存读后感”进入。";
   if (!validPost) button.disabled = true;
   try { const postUrl = new URL(url, location.origin); if (postUrl.origin === location.origin) back.href = postUrl.href; } catch (_) {}
