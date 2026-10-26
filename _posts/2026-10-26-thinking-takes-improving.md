@@ -10,7 +10,7 @@ slug: thinking-takes-improving
 
 胡说八道把自己都骗过去了
 
-
+---
 
 在和研究生导师的交流中，我也逐渐认识到一个问题：
 
@@ -20,7 +20,7 @@ slug: thinking-takes-improving
 
 导师接收你是觉得你能帮助他解决他现在的问题，不管是发表论文还是完成项目工作
 
-
+---
 
 未来你走向何方，唯一的责任人是你自己，
 
@@ -32,7 +32,7 @@ slug: thinking-takes-improving
 
 你要从事研发工作还是行政工作（或者是先研发再当领导）
 
-
+---
 
 我会找到自己的舒适区间，找到自己向往的生活，
 
@@ -42,4 +42,4 @@ slug: thinking-takes-improving
 
 Stop complaining, Stop worrying, Stop being confused.
 
-And one day, you will find your life.
+**And one day, you will find your life.**
