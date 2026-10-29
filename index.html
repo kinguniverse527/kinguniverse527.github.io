@@ -1,43 +1,41 @@
 ---
 layout: default
 ---
-<section class="intro" aria-labelledby="intro-title">
-  <p class="eyebrow">A PERSONAL SPACE</p>
-  <h1 id="intro-title">{{ site.data.profile.name | escape }}</h1>
-  <p>{{ site.data.profile.intro | escape }}</p>
-  <p class="muted quote" lang="en">{{ site.data.profile.quote | escape }}</p>
+<section class="home-profile" aria-labelledby="intro-title">
+  <div class="profile-avatar" aria-hidden="true">KU</div>
+  <div>
+    <h1 id="intro-title">{{ site.data.profile.name | escape }}</h1>
+    <p>{{ site.data.profile.intro | escape }}</p>
+    <p class="muted text-note" lang="en">{{ site.data.profile.quote | escape }}</p>
+  </div>
 </section>
 
-{% include ai-comment.html %}
-
-<div class="home-grid">
-  <section id="writing" aria-labelledby="writing-title">
-    <h2 id="writing-title">文字与记录</h2>
+<section id="writing" class="home-writing" aria-labelledby="writing-title">
+  <header class="section-heading">
+    <h2 id="writing-title">文章</h2>
+    <span class="muted text-note">{{ site.posts.size }} 篇记录 · 最近更新在前</span>
+  </header>
+  <div class="post-list">
     {% for post in site.posts %}
     <article class="post-item">
-      <time class="muted" datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: '%Y.%m.%d' }}</time>
       <h3><a href="{{ post.url | relative_url }}">{{ post.title | escape }}</a></h3>
-      <p class="muted">{{ post.description | default: post.excerpt | strip_html | truncate: 120 | escape }}</p>
+      <time class="muted" datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: '%Y.%m.%d' }}</time>
+      <span class="post-arrow" aria-hidden="true">↗</span>
     </article>
     {% else %}
     <p class="muted">暂时没有文章。</p>
     {% endfor %}
-  </section>
+  </div>
+</section>
 
-  <aside class="sidebar" aria-label="个人资料与项目">
-    <section aria-labelledby="about-title">
-      <h2 id="about-title">关于我</h2>
-      <p>{{ site.data.profile.intro | escape }}</p>
-      <a href="{{ '/about/' | relative_url }}">了解更多 →</a>
-    </section>
-    <section id="projects" aria-labelledby="projects-title">
-      <h2 id="projects-title">正在做的事</h2>
-      {% for project in site.data.profile.projects %}
-      <div class="project-item">
-        <h3><a href="{{ project.url | escape }}">{{ project.name | escape }} ↗</a></h3>
-        <p class="muted">{{ project.description | escape }}</p>
-      </div>
-      {% endfor %}
-    </section>
-  </aside>
-</div>
+{% include ai-comment.html %}
+
+<details id="projects" class="home-projects">
+  <summary>正在做的事</summary>
+  {% for project in site.data.profile.projects %}
+  <div class="project-item">
+    <a href="{{ project.url | escape }}">{{ project.name | escape }} ↗</a>
+    <p class="muted text-note">{{ project.description | escape }}</p>
+  </div>
+  {% endfor %}
+</details>

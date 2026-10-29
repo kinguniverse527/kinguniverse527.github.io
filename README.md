@@ -28,14 +28,16 @@
 
 ## 首页 ChatGPT 留言
 
-首页简介下方展示一段 ChatGPT 生成的读后留言，标明生成日期和当时阅读的文章数量，可展开“阅读范围”查看相关文章。
+首页以标题和日期组成紧凑的文章目录，不显示摘要，也不再展示大块总结。目录下方以评论样式展示 ChatGPT 留言：头像、署名、AI 标记和日期，长留言支持展开/收起，阅读来源可单独展开。
 
 - 内容、日期、所读文章路径保存在 [`_data/ai_comment.yml`](_data/ai_comment.yml)；`source_revision` 记录阅读时的仓库版本。
-- 展示模板为 [`_includes/ai-comment.html`](_includes/ai-comment.html)，布局在 `assets/css/style.css` 的末尾。
+- 展示模板为 [`_includes/ai-comment.html`](_includes/ai-comment.html)，布局在 `assets/css/style.css` 的留言样式区域；展开交互在 `assets/js/comment-ui.js`。
 - 将 `enabled` 改为 `false` 可以隐藏留言。段落作为普通文字显示，不执行 HTML。
 - **当前留言由 ChatGPT 在本次对话中阅读文章后生成并发布；新文章或内容更新不会自动触发新评论。** 页面上的日期与篇数对应当次阅读，不代表实时全站分析。
 - 留言是 AI 对文章的阅读理解，不代表作者自述。它直接显示在首页，不冒用 GitHub 读者账号，也不需要额外 API 密钥。
 - 文章链接按原文件路径匹配，写作室修改网址短名后链接随构建更新。删除或移动源文件会使该篇链接不再显示；原阅读记录仍保留。
+
+文章页的 ChatGPT 留言使用相同样式；“邀请 ChatGPT 留言”收在可展开入口内，仍可复制文章、打开 ChatGPT 并保存回复。普通读者评论区继续使用 Giscus。
 
 ## 文章评论（Giscus）
 

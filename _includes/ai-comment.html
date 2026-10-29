@@ -1,23 +1,36 @@
 {% assign ai_comment = site.data.ai_comment %}
 {% if ai_comment.enabled and ai_comment.paragraphs.size > 0 %}
-<section id="ai-comment" class="ai-comment" aria-labelledby="ai-comment-title">
-  <header class="ai-comment-header">
-    <h2 id="ai-comment-title">{{ ai_comment.author | escape }} 的读后留言</h2>
-    <p class="muted text-note">AI 生成 · <time datetime="{{ ai_comment.generated_on | escape }}">{{ ai_comment.generated_on | date: '%Y.%m.%d' }}</time> · 基于当时的 {{ ai_comment.source_paths.size }} 篇文章</p>
+<section id="ai-comment" class="home-comments" aria-labelledby="ai-comment-title">
+  <header class="section-heading">
+    <h2 id="ai-comment-title">留言</h2>
+    <span class="muted text-note">1 条</span>
   </header>
-  {% for paragraph in ai_comment.paragraphs %}
-  <p>{{ paragraph | escape }}</p>
-  {% endfor %}
-  <details class="ai-comment-sources">
-    <summary class="muted text-note">阅读范围</summary>
-    <ul>
-      {% for source_path in ai_comment.source_paths %}
-      {% assign source_post = site.posts | where: 'path', source_path | first %}
-      {% if source_post %}
-      <li><a href="{{ source_post.url | relative_url }}">{{ source_post.title | escape }}</a></li>
-      {% endif %}
-      {% endfor %}
-    </ul>
-  </details>
+  <article class="comment-row">
+    <div class="comment-avatar" aria-hidden="true">GPT</div>
+    <div class="comment-body">
+      <header class="comment-meta">
+        <strong>@{{ ai_comment.author | escape }}</strong>
+        <span class="ai-label">AI 生成</span>
+        <time class="muted" datetime="{{ ai_comment.generated_on | escape }}">{{ ai_comment.generated_on | date: '%Y.%m.%d' }}</time>
+      </header>
+      <div id="home-comment-text" class="comment-text">
+        {% for paragraph in ai_comment.paragraphs %}
+        <p>{{ paragraph | escape }}</p>
+        {% endfor %}
+      </div>
+      <button class="comment-toggle" type="button" aria-expanded="false" aria-controls="home-comment-text" hidden>展开</button>
+      <details class="comment-sources">
+        <summary>阅读的 {{ ai_comment.source_paths.size }} 篇文章</summary>
+        <ul>
+          {% for source_path in ai_comment.source_paths %}
+          {% assign source_post = site.posts | where: 'path', source_path | first %}
+          {% if source_post %}
+          <li><a href="{{ source_post.url | relative_url }}">{{ source_post.title | escape }}</a></li>
+          {% endif %}
+          {% endfor %}
+        </ul>
+      </details>
+    </div>
+  </article>
 </section>
 {% endif %}
